@@ -1,11 +1,11 @@
 async function calcular() {
     const valor = document.getElementById("valor").value;
     const descontoInput = document.getElementById("desconto").value;
-    const desconto = descontoInput / 100;
+    const desconto = descontoInput ? descontoInput / 100 : 0;
     const vip = document.getElementById("vip").checked;
 
-    if (!valor || !descontoInput) {
-        alert("Preencha os campos.");
+    if (!valor) {
+        alert("Preencha o valor da compra.");
         return;
     }
 
