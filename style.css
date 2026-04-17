@@ -1,16 +1,117 @@
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
+* {
+    box-sizing: border-box;
 }
 
-input {
-    padding: 6px;
-    margin-top: 5px;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #222;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+.container {
+    width: 100%;
+    max-width: 520px;
+    background-color: #ffffff;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+.subtitle {
+    margin-bottom: 24px;
+    color: #666;
+}
+
+.form-group {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
 }
 
 button {
-    margin-top: 10px;
-    margin-right: 8px;
-    padding: 8px 12px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    background-color: #6c63ff;
+    color: white;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: 0.92;
+}
+
+.result-box,
+.history-box {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.result-box p {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 12px;
+    min-height: 22px;
+}
+
+.history-content {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.history-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.history-item:last-child {
+    border-bottom: none;
 }

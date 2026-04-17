@@ -7,37 +7,44 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+    <main class="page">
+        <section class="container">
+            <h1>Calculadora de Cashback</h1>
+            <p class="subtitle">Informe os dados da compra para calcular o cashback.</p>
 
-    <h2>Calculadora de Cashback</h2>
+            <div class="form-group">
+                <label for="valor">Valor da compra</label>
+                <input id="valor" type="number" placeholder="Ex: 600">
+            </div>
 
-    <div>
-        <label for="valor">Valor da compra:</label><br>
-        <input id="valor" type="number" placeholder="Ex: 600">
-    </div>
+            <div class="form-group">
+                <label for="desconto">Desconto (%)</label>
+                <input id="desconto" type="number" placeholder="Ex: 20">
+            </div>
 
-    <br>
+            <div class="checkbox-group">
+                <label for="vip">Cliente VIP</label>
+                <input type="checkbox" id="vip">
+            </div>
 
-    <div>
-        <label for="desconto">Desconto (%):</label><br>
-        <input id="desconto" type="number" placeholder="Ex: 20">
-    </div>
+            <div class="button-group">
+                <button onclick="calcular()">Calcular Cashback</button>
+                <button onclick="verHistorico()">Ver Histórico</button>
+            </div>
 
-    <br>
+            <div class="result-box">
+                <h2>Resultado</h2>
+                <p id="resultado">Nenhum cálculo realizado ainda.</p>
+            </div>
 
-    <div>
-        <label for="vip">
-            Cliente VIP:
-            <input type="checkbox" id="vip">
-        </label>
-    </div>
-
-    <br>
-
-    <button onclick="calcular()">Calcular Cashback</button>
-    <button onclick="verHistorico()">Ver Histórico</button>
-
-    <h3>Resultado:</h3>
-    <p id="resultado"></p>
+            <div class="history-box">
+                <h2>Histórico</h2>
+                <div id="historico-lista" class="history-content">
+                    Nenhum histórico carregado.
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script src="/script.js"></script>
 </body>

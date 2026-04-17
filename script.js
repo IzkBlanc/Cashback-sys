@@ -1,9 +1,10 @@
 async function calcular() {
     const valor = document.getElementById("valor").value;
-    const desconto = document.getElementById("desconto").value / 100;
+    const descontoInput = document.getElementById("desconto").value;
+    const desconto = descontoInput / 100;
     const vip = document.getElementById("vip").checked;
 
-    if (!valor || !document.getElementById("desconto").value) {
+    if (!valor || !descontoInput) {
         alert("Preencha os campos.");
         return;
     }
@@ -28,23 +29,35 @@ async function calcular() {
     }
 
     document.getElementById("resultado").innerText =
-        "Cashback: R$ " + data.cashback;
+        `Cashback: R$ ${Number(data.cashback).toFixed(2)}`;
 }
 
 async function verHistorico() {
     const response = await fetch("/historico");
     const data = await response.json();
 
-    let texto = "";
+    const historicoLista = document.getElementById("historico-lista");
 
     if (data.length === 0) {
-        texto = "Nenhum histórico encontrado.";
-    } else {
-        data.forEach(item => {
-            const descontoPercentual = item.desconto * 100;
-            texto += `Compra: R$ ${item.valor} | Desconto: ${descontoPercentual}% | VIP: ${item.vip ? "Sim" : "Não"} | Cashback: R$ ${item.cashback} | Data: ${item.data}<br>`;
-        });
+        historicoLista.innerHTML = "Nenhum histórico encontrado.";
+        return;
     }
 
-    document.getElementById("resultado").innerHTML = texto;
+    let html = "";
+
+    data.forEach(item => {
+        const descontoPercentual = item.desconto * 100;
+
+        html += `
+            <div class="history-item">
+                <strong>Compra:</strong> R$ ${Number(item.valor).toFixed(2)}<br>
+                <strong>Desconto:</strong> ${descontoPercentual}%<br>
+                <strong>VIP:</strong> ${item.vip ? "Sim" : "Não"}<br>
+                <strong>Cashback:</strong> R$ ${Number(item.cashback).toFixed(2)}<br>
+                <strong>Data:</strong> ${item.data}
+            </div>
+        `;
+    });
+
+    historicoLista.innerHTML = html;
 }
