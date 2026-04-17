@@ -58,6 +58,9 @@ def calcular():
 def historico():
     ip = request.headers.get("X-Forwarded-For", request.remote_addr)
 
+    if ip and "," in ip:
+        ip = ip.split(",")[0].strip()
+
     conexao = conectar_db()
     cursor = conexao.cursor()
 
