@@ -42,8 +42,8 @@ def calcular():
     cursor = conexao.cursor()
 
     sql = """
-    INSERT INTO historico (ip, valor, desconto, vip, cashback)
-    VALUES (%s, %s, %s, %s, %s)
+    INSERT INTO historico (ip, valor, desconto, vip, cashback, data)
+    VALUES (%s, %s, %s, %s, %s, NOW())
     """
     cursor.execute(sql, (ip, valor, desconto, vip, resultado))
     conexao.commit()
