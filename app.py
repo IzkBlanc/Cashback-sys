@@ -19,6 +19,15 @@ def conectar_db():
     )
 
 
+def obter_ip_cliente():
+    ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+
+    if ip and "," in ip:
+        ip = ip.split(",")[0].strip()
+
+    return ip
+
+
 @app.route("/")
 def home():
     return send_from_directory(".", "index.html")
@@ -31,12 +40,12 @@ def calcular():
     try:
         valor = float(data["valor"])
         desconto = float(data["desconto"])
-        vip = bool(data["vip"])
+        vip = data["vip"]
     except (KeyError, ValueError, TypeError):
         return jsonify({"erro": "Dados inválidos"}), 400
 
     resultado = calcular_cashback(valor, desconto, vip)
-    ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+    ip = obter_ip_cliente()
 
     conexao = conectar_db()
     cursor = conexao.cursor()
@@ -45,6 +54,7 @@ def calcular():
     INSERT INTO historico (ip, valor, desconto, vip, cashback, data)
     VALUES (%s, %s, %s, %s, %s, NOW())
     """
+
     cursor.execute(sql, (ip, valor, desconto, vip, resultado))
     conexao.commit()
 
@@ -56,10 +66,7 @@ def calcular():
 
 @app.route("/historico", methods=["GET"])
 def historico():
-    ip = request.headers.get("X-Forwarded-For", request.remote_addr)
-
-    if ip and "," in ip:
-        ip = ip.split(",")[0].strip()
+    ip = obter_ip_cliente()
 
     conexao = conectar_db()
     cursor = conexao.cursor()
@@ -70,6 +77,7 @@ def historico():
     WHERE ip = %s
     ORDER BY data DESC
     """
+
     cursor.execute(sql, (ip,))
     resultados = cursor.fetchall()
 
